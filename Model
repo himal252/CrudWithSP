@@ -1,0 +1,14 @@
+   public class Student
+   {
+       public int id { get; set; }
+       [Display(Name ="Student Name :")]
+       public string name { get; set; }
+       [Display(Name = "Student Name :")]
+       public string address { get; set; }
+       [Display(Name = "Student Address :")]
+       public string mobileno { get; set; }
+       [Display(Name = "Student EmailId :")]
+       public string emailid { get; set; }
+       [Display(Name = "Student Gender :")]
+       public string gender { get; set; }
+   }
