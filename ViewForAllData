@@ -1,0 +1,51 @@
+@model System.Data.DataTable
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Student Detail</h2>
+@using (Html.BeginForm("Index", "Student", FormMethod.Post))
+{
+    <div>
+        Search By Id : @Html.TextBox("id")
+
+        Search By Gender : Male @Html.RadioButton("Gender", "Male")
+        Female @Html.RadioButton("Gender", "Female")
+
+        <input type="submit" value="Search" />
+    </div>
+    <table class="table">
+        <tr>
+            <th>Student Name</th>
+            <th>Student Address</th>
+            <th>Student Mobile No</th>
+            <th>Student Email-Id</th>
+            <th>Student Gender</th>
+        </tr>
+        @for (int i = 0; i < Model.Rows.Count; i++)
+        {
+            <tr>
+
+                <td>
+                    @Model.Rows[i][1].ToString()
+                </td>
+                <td>
+                    @Model.Rows[i][2].ToString()
+                </td>
+                <td>
+                    @Model.Rows[i][3].ToString()
+                </td>
+                <td>
+                    @Model.Rows[i][4].ToString()
+                </td>
+                <td>
+                    @Model.Rows[i][5].ToString()
+                </td>
+                <td><a href="@Url.Action("Details", "Student", new { @id = Model.Rows[i][0] })">Details</a></td>
+                <td><a href="@Url.Action("Delete", "Student", new { @id = Model.Rows[i][0] })">Delete</a></td>
+            </tr>
+        }
+    </table>
+
+}
