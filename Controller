@@ -1,0 +1,79 @@
+ /*Connection String*/     private string constr = @"Data Source=HIMAL\MSSQLSERVER01;Initial Catalog=StudentCrud;Integrated Security=True;";
+      public ActionResult Index()
+      {
+          DataTable dt = new DataTable();
+          using (SqlConnection conn = new SqlConnection(constr))
+          {
+              conn.Open();
+              SqlCommand cmd = new SqlCommand("spallstudent", conn);
+              cmd.CommandType = CommandType.StoredProcedure;
+              //string q = "select * from tblstudentdetail";
+              cmd.ExecuteScalar().ToString();
+              SqlDataAdapter adapter = new SqlDataAdapter();
+              adapter.SelectCommand = cmd;
+
+              adapter.Fill(dt);
+
+          }
+
+          return View(dt);
+      }
+
+      [HttpPost]
+      public ActionResult Index(int? id, string gender)
+      {
+
+          DataTable dt = new DataTable();
+          using (SqlConnection conn = new SqlConnection(constr))
+          {
+              string searchid = Request.Form["id"];
+              conn.Open();
+              if (searchid == "")
+              {
+                  gender = Request.Form["gender"];
+                  SqlCommand cmd = new SqlCommand("spstudentbygender", conn);
+                  cmd.CommandType = CommandType.StoredProcedure;
+                  cmd.Parameters.AddWithValue("@gender", gender);
+                  cmd.ExecuteScalar().ToString();
+                  SqlDataAdapter adapter = new SqlDataAdapter();
+                  adapter.SelectCommand = cmd;
+                  adapter.Fill(dt);
+
+              }
+              else
+              {
+                  id = int.Parse(searchid);
+                  SqlCommand cmd = new SqlCommand("spstudentbyid", conn);
+                  cmd.CommandType = CommandType.StoredProcedure;
+                  cmd.Parameters.AddWithValue("@id", id);
+                  cmd.ExecuteScalar().ToString();
+                  SqlDataAdapter adapter = new SqlDataAdapter();
+                  adapter.SelectCommand = cmd;
+                  adapter.Fill(dt);
+              }
+          }
+          ModelState.Clear();
+          return View(dt);
+      }
+
+
+      // GET: Student/Details/5
+      public ActionResult Details(int id)
+      {
+          DataTable dt = new DataTable();
+          using (SqlConnection conn = new SqlConnection(constr))
+          {
+              conn.Open();
+              SqlCommand cmd = new SqlCommand("spstudentbyid", conn);
+              cmd.CommandType = CommandType.StoredProcedure;
+              cmd.Parameters.AddWithValue("@id", id);
+              //string q = "select * from tblstudentdetail";
+              cmd.ExecuteScalar().ToString();
+              SqlDataAdapter adapter = new SqlDataAdapter();
+              adapter.SelectCommand = cmd;
+
+              adapter.Fill(dt);
+
+          }
+          return View(dt);
+      }
