@@ -1,0 +1,50 @@
+@model System.Data.DataTable
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Student Name :")
+        </dt>
+
+        <dd>
+            @Html.Label(Model.Rows[0][1].ToString())
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Student Address :")
+        </dt>
+
+        <dd>
+            @Html.Label(Model.Rows[0][2].ToString())
+        </dd>
+        <dt>
+            @Html.DisplayName("Student Mobile No :")
+        </dt>
+
+        <dd>
+            @Html.Label(Model.Rows[0][3].ToString())
+        </dd>
+        <dt>
+            @Html.DisplayName("Student Email Id :")
+        </dt>
+
+        <dd>
+            @Html.Label(Model.Rows[0][4].ToString())
+        </dd>
+        <dt>
+            @Html.DisplayName("Student Gender :")
+        </dt>
+
+        <dd>
+            @Html.Label(Model.Rows[0][5].ToString())
+        </dd>
+
+    </dl>
+</div>
